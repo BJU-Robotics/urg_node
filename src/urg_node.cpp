@@ -541,6 +541,7 @@ void UrgNode::scanThread()
         if (publish_multiecho_) {
           sensor_msgs::msg::MultiEchoLaserScan msg;
           if (urg_->grabScan(msg)) {
+            msg.header.stamp = now();
             echoes_pub_->publish(msg);
             echoes_freq_->tick();
           } else {
@@ -551,6 +552,7 @@ void UrgNode::scanThread()
         } else {
           sensor_msgs::msg::LaserScan msg;
           if (urg_->grabScan(msg)) {
+            msg.header.stamp = now();
             laser_pub_->publish(msg);
             laser_freq_->tick();
           } else {
